@@ -5,6 +5,7 @@ dotenv.config({ path: "./config.env" }); //import config.env file
 mongoose.connect(process.env.DATABASE,{
     useUnifiedTopology:true,
     useNewUrlParser: true,
+    autoIndex:true
 },).then(()=>{
     console.log('MongoDB database connection successfully')
 }).catch((error)=>{
