@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
-const URL = "mongodb+srv://ostadUser:ostadPass@cluster0.dejoiup.mongodb.net/task-management"
+const dotenv = require("dotenv");  //require dotenv package
+dotenv.config({ path: "./config.env" }); //import config.env file
 
-
-mongoose.connect(URL,{autoIndex:true}).then(()=>{
+mongoose.connect(process.env.DATABASE,{
+    useUnifiedTopology:true,
+    useNewUrlParser: true,
+},).then(()=>{
     console.log('MongoDB database connection successfully')
 }).catch((error)=>{
     console.log('MongoDB database connection fail',error)
