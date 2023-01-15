@@ -8,7 +8,7 @@ const registration= async(req,res)=>{
     try {
         await UserModel.create(reqBody,(error,data)=>{
             if(error){
-                res.status(400).json({status:"fail",data:error})
+                res.status(200).json({status:"fail",data:error})
             }else{
                 res.status(200).json({status:"success",data:data})
             }
