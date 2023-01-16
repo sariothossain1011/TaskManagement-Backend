@@ -24,7 +24,6 @@ const UserSchema = mongoose.Schema({
     },
     photo:{
         type:String,
-        required:true,
     },
     createDate:{
         type:Date,
