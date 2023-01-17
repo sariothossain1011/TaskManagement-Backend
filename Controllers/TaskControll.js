@@ -9,7 +9,7 @@ const createTask = async(req,res)=>{
             if(error){
                 res.status(400).json({status:"fail",data:error})
             }else{
-                res.status(400).json({status:"success",data:data})
+                res.status(200).json({status:"success",data:data})
             }
         })
     } catch (error) {
