@@ -4,10 +4,10 @@ const TaskControll = require('../Controllers/TaskControll');
 const Authentication = require('../Middleware/Authentication')
 
 router.post('/createTask',Authentication,TaskControll.createTask)
-router.get('/deleteTask/:id',Authentication,TaskControll.deleteTask)
-router.get('/updateStatusTask/:id/:status',Authentication,TaskControll.updateStatusTask)
-router.get('/listTaskByStatus/:status',Authentication,TaskControll.listTaskByStatus)
-router.get('/taskStatusCount',Authentication,TaskControll.taskStatusCount)
+router.get('/deleteTask/:id',TaskControll.deleteTask)
+router.get('/updateStatusTask/:id/:status',TaskControll.updateStatusTask)
+router.get('/listTaskByStatus/:status',TaskControll.listTaskByStatus)
+router.get('/taskStatusCount',TaskControll.taskStatusCount)
 
 
 
