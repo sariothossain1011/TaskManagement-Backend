@@ -30,7 +30,7 @@ const login = async(req,res)=>{
                 res.status(400).json({status:"login fail",data:error})
             }else{
                 if(data.length>0){
-                    let Payload = {exp:Math.floor(Date.now()/1000 * 24*60*60),data:data[0]};
+                    let Payload = {exp:Math.floor(Date.now()/5000 * 24*60*60),data:data[0]};
                     let token = jwt.sign(Payload,process.env.SECRET_KEY);
                     res.status(200).json({status:"login success",token:token,data:data[0]});
                 }else{
