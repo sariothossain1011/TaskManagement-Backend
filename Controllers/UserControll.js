@@ -60,44 +60,20 @@ const profileUpdate =async(req,res)=>{
     }
 }
 
-// const profileDetails =async(req,res)=>{
-//     let email=req.headers['email'];
-//     await UserModel.aggregate([
-//         {$match:{email:email}},
-//         {$project:{_id:1,email:1,firstName:1,lastName:1,mobile:1,photo:1,password:1}}
-//     ],(error,data)=>{
-//         if(error){
-//             res.status(400).json({status:"fail",data:error})
-//         }else{
-//                 res.status(200).json({status:"success",data:data})
-//         }
-//     })
-// }
-
 const profileDetails =async(req,res)=>{
-    let email= req.headers['email'];
-    let reqBody = {email:email};
-    let Projection = "_id email firstName lastName mobile photo password"
-    await UserModel.findOne(reqBody,Projection,(err,data)=>{
-            if(err){
-                res.status(400).json({status:"fail",data:err})
-            }
-            else {
+    let email=req.user['email']
+    await UserModel.aggregate([
+        {$match:{email:email}},
+        {$project:{_id:1,email:1,firstName:1,lastName:1,mobile:1,photo:1,password:1}}
+    ],(error,data)=>{
+        if(error){
+            res.status(400).json({status:"fail",data:error})
+        }else{
                 res.status(200).json({status:"success",data:data})
-            }
-        })
-    // UserModel.aggregate([
-    //     {$match:{email:email}},
-    //     {$project:{_id:1,email:1,firstName:1,lastName:1,mobile:1,photo:1,password:1}}
-    // ],(err,data)=>{
-    //     if(err){
-    //         res.status(400).json({status:"fail",data:err})
-    //     }
-    //     else {
-    //         res.status(200).json({status:"success",data:data})
-    //     }
-    // })
+        }
+    })
 }
+
 
 module.exports ={
     registration,
