@@ -12,7 +12,7 @@ const RecoverVerifyEmail = async(req,res)=>{
         let UserCount =(await UserModel.aggregate([{$match: {email: email}}, {$count: "total"}]))
         if(UserCount.length>0){
             // OTP insert
-            let CreateOTP = await OTPModel.create({email: email, otp: OTPCode})
+            await OTPModel.create({email: email, otp: OTPCode})
             // send email
             let SendEmail = await SendEmailUtility(email," Your PIN Code is-" + OTPCode," Task Manager PIN Verification " )
             res.status(200).json({status:"success",data:SendEmail})
