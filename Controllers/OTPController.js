@@ -15,12 +15,12 @@ const RecoverVerifyEmail = async(req,res)=>{
             let CreateOTP = await OTPModel.create({email: email, otp: OTPCode})
             // send email
             let SendEmail = await SendEmailUtility(email," Your PIN Code is-" + OTPCode," Task Manager PIN Verification " )
-            res.status(200).json({stutas:"success",data:SendEmail})
+            res.status(200).json({status:"success",data:SendEmail})
         }else{
-            res.status(400).json({stutas:"No User Found",})
+            res.status(400).json({status:"No User Found",})
         }
     } catch (error) {
-        res.status(400).json({stutas:"fail",data:error})
+        res.status(400).json({status:"fail",data:error})
     }
 
 }
@@ -34,13 +34,13 @@ const RecoverVerifyOTP = async(req,res)=>{
         let OTPCount =(await OTPModel.aggregate([{$match: {email: email,otp:OTPCode,status:status}}, {$count: "total"}]))
         if(OTPCount.length>0){
             let OTPUpdate = await OTPModel.updateOne({email:email,otp:OTPCode,status:status},{email:email,otp:OTPCode,status:statusUpdate});
-            res.status(200).json({stutas:"success",data:OTPUpdate})
+            res.status(200).json({status:"success",data:OTPUpdate})
         }else{
-            res.status(400).json({stutas:"success",data:"Invalid OTP Code"})
+            res.status(400).json({status:"success",data:"Invalid OTP Code"})
         }
         
     } catch (error) {
-        res.status(400).json({stutas:"fail",data:error})
+        res.status(400).json({status:"fail",data:error})
     }
 
 }
@@ -54,13 +54,13 @@ const RecoverResetPass = async(req,res)=>{
         let OTPCount =(await OTPModel.aggregate([{$match: {email: email,otp:OTPCode,status:statusUpdate}}, {$count: "total"}]))
         if(OTPCount.length>0){
             let UpdatePass = await UserModel.updateOne({email:email},{password:NewPass});
-            res.status(200).json({stutas:"success",data:UpdatePass})
+            res.status(200).json({status:"success",data:UpdatePass})
         }else{
-            res.status(200).json({stutas:"success",data:"Invalid OTP Code"})
+            res.status(200).json({status:"success",data:"Invalid OTP Code"})
         }
         
     } catch (error) {
-        res.status(400).json({stutas:"fail",data:error})
+        res.status(400).json({status:"fail",data:error})
     }
 
 }
