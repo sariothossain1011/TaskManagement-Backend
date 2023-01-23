@@ -36,7 +36,7 @@ const RecoverVerifyOTP = async(req,res)=>{
             let OTPUpdate = await OTPModel.updateOne({email:email,otp:OTPCode,status:status},{email:email,otp:OTPCode,status:statusUpdate});
             res.status(200).json({status:"success",data:OTPUpdate})
         }else{
-            res.status(400).json({status:"success",data:"Invalid OTP Code"})
+            res.status(400).json({status:"fail",data:"Invalid OTP Code"})
         }
         
     } catch (error) {
@@ -56,7 +56,7 @@ const RecoverResetPass = async(req,res)=>{
             let UpdatePass = await UserModel.updateOne({email:email},{password:NewPass});
             res.status(200).json({status:"success",data:UpdatePass})
         }else{
-            res.status(200).json({status:"success",data:"Invalid OTP Code"})
+            res.status(400).json({status:"fail",data:"Invalid OTP Code"})
         }
         
     } catch (error) {
