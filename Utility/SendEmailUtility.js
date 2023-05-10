@@ -5,7 +5,7 @@ const SendEmailUtility =async(EmailTo,EmailText,EmailSubject)=>{
     let transporter = nodemailer.createTransport({
         host: process.env.EMAIL_HOST,
         port: 587,
-        secure:true,
+        secure:false,
         auth:{
             user:process.env.EMAIL_OUTLOOK,
             pass: process.env.PASSWORD_OUTLOOK,
