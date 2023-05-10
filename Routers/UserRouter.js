@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router()
-const UserContorller = require('../Controllers/UserControll');
+const UserController = require('../Controllers/UserController');
 const Authentication = require('../Middleware/Authentication')
 
 
-router.post('/registration',UserContorller.registration)
-router.post('/login',UserContorller.login)
-router.post('/profileUpdate',Authentication,UserContorller.profileUpdate)
-router.get('/profileDetails',Authentication,UserContorller.profileDetails)
+router.post('/registration',UserController.registration)
+router.post('/login',UserController.login)
+router.post('/profileUpdate',Authentication,UserController.profileUpdate)
+router.get('/profileDetails',Authentication,UserController.profileDetails)
+
 
 
 module.exports = router ;

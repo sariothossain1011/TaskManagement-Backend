@@ -1,18 +1,14 @@
-const nodemailer = require('nodemailer')
-// const smtpTransport = require('nodemailer-smtp-transport');
+const nodemailer = require('nodemailer');
+
 const SendEmailUtility =async(EmailTo,EmailText,EmailSubject)=>{
 
     let transporter = nodemailer.createTransport({
-        // host: process.env.EMAIL_HOST,
-        host: 'mail.teamrabbil.com',
-        // port: 587,
-        port: 25,
+        host: process.env.EMAIL_HOST,
+        port: 587,
         secure:true,
         auth:{
-            // user:process.env.EMAIL_OUTLOOK,
-            // pass: process.env.PASSWORD_OUTLOOK,
-            user:"info@teamrabbil.com",
-            pass: "~sR4[bhaC[Qs",
+            user:process.env.EMAIL_OUTLOOK,
+            pass: process.env.PASSWORD_OUTLOOK,
         },
         tls: {
             rejectUnauthorized: false,
@@ -20,7 +16,7 @@ const SendEmailUtility =async(EmailTo,EmailText,EmailSubject)=>{
     })
     
     let mailOptions = {
-        from:'Task Manager MERN <info@teamrabbil.com>',
+        from:' TASK MANAGER <sariothossain1011@outlook.com>',
         to: EmailTo,
         subject: EmailSubject,
         text:EmailText,
@@ -31,3 +27,10 @@ const SendEmailUtility =async(EmailTo,EmailText,EmailSubject)=>{
 
 
 module.exports = SendEmailUtility
+
+
+
+
+
+
+

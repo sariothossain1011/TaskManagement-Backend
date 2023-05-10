@@ -5,6 +5,7 @@ const { readdirSync } = require("fs");
 require('./DB/Conn');
 dotenv.config({path:'./config.env'});
 // SECURITY MIDDLEWARE
+
 const cors = require('cors');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');

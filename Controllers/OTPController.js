@@ -1,21 +1,20 @@
-const OTPModel = require("../Models/OTPModel");
-const UserModel = require("../Models/UserModel");
-const SendEmailUtility = require("../Utility/SendEmailUtility");
+const UserModel = require('../Models/UserModel');
+const OTPModel = require('../Models/OTPModel');
+const SendEmailUtility = require('../Utility/SendEmailUtility');
 
 
-
-const RecoverVerifyEmail = async(req,res)=>{
+exports.RecoverVerifyEmail = async(req,res)=>{
     let email = req.params.email;
     let OTPCode = Math.floor(100000 + Math.random() * 900000)
     try {
-        // email account qurey 
+        // email account query 
         let UserCount =(await UserModel.aggregate([{$match: {email: email}}, {$count: "total"}]))
         if(UserCount.length>0){
             // OTP insert
             await OTPModel.create({email: email, otp: OTPCode})
             // send email
-            let SendEmail = await SendEmailUtility(email," Your PIN Code is-" + OTPCode," Task Manager PIN Verification " )
-            res.status(200).json({status:"success",data:SendEmail})
+            let SendEmail = await SendEmailUtility(email," Your PIN Code is-" + OTPCode,"TASK MANGER PIN Verification " )
+            return res.status(200).json({status:"success",data:SendEmail})
         }else{
             res.status(400).json({status:"No User Found",})
         }
@@ -25,7 +24,7 @@ const RecoverVerifyEmail = async(req,res)=>{
 
 }
 
-const RecoverVerifyOTP = async(req,res)=>{
+exports.RecoverVerifyOTP = async(req,res)=>{
     let email = req.params.email;
     let OTPCode = req.params.otp;
     let status=0;
@@ -45,7 +44,7 @@ const RecoverVerifyOTP = async(req,res)=>{
 
 }
 
-const RecoverResetPass = async(req,res)=>{
+exports.RecoverResetPass = async(req,res)=>{
     let email = req.body['email']
     let OTPCode = req.body['otp']
     let NewPass=req.body['password']
@@ -63,9 +62,4 @@ const RecoverResetPass = async(req,res)=>{
         res.status(400).json({status:"fail",data:error})
     }
 
-}
-module.exports = {
-    RecoverVerifyEmail,
-    RecoverVerifyOTP,
-    RecoverResetPass
 }
