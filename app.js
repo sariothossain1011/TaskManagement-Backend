@@ -15,6 +15,14 @@ const expressMongoSanitize = require('express-mongo-sanitize');
 const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
 
+// Enable CORS for all requests
+app.use(function(req, res, next) {
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+	next();
+  });
+
 
 //security middleware implement
 app.use(cors());
