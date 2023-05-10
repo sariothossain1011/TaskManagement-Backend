@@ -31,7 +31,7 @@ const login = async(req,res)=>{
             }else{
                 if(data.length>0){
                     let Payload = {exp:Math.floor(Date.now()/5000 * 24*60*60),data:data[0]};
-                    let token = jwt.sign(Payload,process.env.SECRET_KEY);
+                    let token = jwt.sign(Payload,'taskManagement');
                     res.status(200).json({status:"login success",token:token,data:data[0]});
                 }else{
                     res.status(400).json({status:"unauthorized user"})
@@ -44,21 +44,19 @@ const login = async(req,res)=>{
     }
 }
 
-const profileUpdate =async(req,res)=>{
+const profileUpdate = async (req, res) => {
     let email = req.user['email'];
-    let reqBody = req.body ;
+    let reqBody = req.body;
     try {
-        await UserModel.updateOne({email:email},reqBody,(error,data)=>{
-            if(error){
-                res.status(400).json({status:"fail",data:error})
-            }else{
-                res.status(200).json({status:"success",data:data})
-            }
-        })
+      const updatedUser = await UserModel.findOneAndUpdate({ email }, reqBody, { new: true });
+      // the {new: true} option is added to return the updated document
+      res.status(200).json({ status: "success", data: updatedUser });
     } catch (error) {
-        console.log(error)
+      console.log(error);
+      res.status(400).json({ status: "fail", data: error });
     }
-}
+  };
+  
 
 const profileDetails =async(req,res)=>{
     let email=req.user['email']

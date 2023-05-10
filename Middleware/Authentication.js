@@ -9,12 +9,12 @@ const Authentication =async(req,res,next)=>{
         res.status(401).json({ message: "Not authorized, please login"});
         }
         // verify token
-        jwt.verify(token,process.env.SECRET_KEY,(error,decode)=>{
+        jwt.verify(token,'taskManagement',(error,decode)=>{
             if(error){
                 res.status(400).json({ message: "Not authorized, please login" })
             }else{
                 req.user = decode['data']
-                // console.log(req.user);
+                // console.log(req.user['email']);
                 next();
             }
         });
