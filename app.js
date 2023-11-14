@@ -13,7 +13,7 @@ const xssClean = require('xss-clean');
 const expressMongoSanitize = require('express-mongo-sanitize');
 const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
-
+const morgan = require('morgan')
 
 //security middleware implement
 app.use(cors());
@@ -24,6 +24,7 @@ app.use(xssClean());
 app.use(expressMongoSanitize());
 app.use(helmet());
 app.use(hpp());
+app.use(morgan())
 app.use(express.json({limit:'100mb'}));
 app.use(express.urlencoded({limit:'100mb'}));
 // request rate limiting 
