@@ -30,7 +30,8 @@ const login = async(req,res)=>{
                 res.status(400).json({status:"login fail",data:error})
             }else{
                 if(data.length>0){
-                    let Payload = {exp:'30d',data:data[0]};
+                    let expTime = Math.floor(Date.now() / 1000) +7 * 24 * 60 * 60 ;
+                    let Payload = {exp:expTime,data:data[0]};
                     let token = jwt.sign(Payload,'taskManagement');
                     res.status(200).json({status:"login success",token:token,data:data[0]});
                 }else{
